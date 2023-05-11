@@ -17,6 +17,16 @@ def imageRotate(image,deg=90):
     return out_final
 
 
+def imageTranspose(image):
+    im = Image.open(image).convert('L')
+   
+    out = im.transpose(Image.FLIP_LEFT_RIGHT)
+    out_io = BytesIO()
+    out.save(out_io,'PNG',quality=85)
+    out_final = File(out_io,name=image.name)
+    return out_final
+
+
 # Create your models here.
 class ImageEnhance(models.Model):
     title = models.CharField(max_length=50)
@@ -27,6 +37,10 @@ class ImageEnhance(models.Model):
     
     def rotateMe(self,deg=90,*args,**kwargs):
         self.image_enhanced = imageRotate(self.image,deg)
+        super().save(*args,**kwargs)
+
+    def transposeMe(self,*args,**kwargs):
+        self.image_enhanced = imageTranspose(self.image)
         super().save(*args,**kwargs)
 
     def __str__(self):

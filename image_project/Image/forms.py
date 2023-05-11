@@ -1,10 +1,8 @@
-from django.shortcuts import render
-
+from django import forms
 from .models import ImageEnhance
 
-# Create your views here.
-def imageHome(request):
-    images = ImageEnhance.objects.all()
-    
-        
-    return render(request,'image_home.html',{'images':images})
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = ImageEnhance
+        fields = ['title','image']

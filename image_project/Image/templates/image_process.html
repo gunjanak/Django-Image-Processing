@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+{% if object%}
+<h1>Image uploaded</h1>
+<img src="{{ object.image.url }}">
+    {% if object.image_enhanced %}
+    <img src="{{ object.image_enhanced.url }}">
+    {% endif %}
+{% endif %}
+
+<form name="process" id="dropdown-form" method="post" url="">
+    {% csrf_token %}
+    
+
+<button name="Rotate" id="submit-button">Click To Rotate</button>
+<button name="Transpose" id="submit-button">Click To Transpose</button>
+</form>
+
+{% endblock content %}
