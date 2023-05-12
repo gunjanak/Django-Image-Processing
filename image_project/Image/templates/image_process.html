@@ -2,20 +2,37 @@
 {% block content %}
 {% load static %}
 
+
+
+
 {% if object%}
 <h1>Image uploaded</h1>
 <img src="{{ object.image.url }}">
     {% if object.image_enhanced %}
     <img src="{{ object.image_enhanced.url }}">
     {% endif %}
-{% endif %}
 
-<form name="process" id="dropdown-form" method="post" url="">
-    {% csrf_token %}
+    <form id="dropdown-form" method="post" url="">
+        {% csrf_token %}
+        <label for="first-dropdown">First Dropdown:</label>
+    <select name="first-dropdown" id="first-dropdown">
+      <option value="">Choose an option</option>
+      <option value="1">Basic</option>
+      <option value="2">Spatial</option>
+      <option value="3">Frequency</option>
     
-
-<button name="Rotate" id="submit-button">Click To Rotate</button>
-<button name="Transpose" id="submit-button">Click To Transpose</button>
-</form>
-
+    </select>
+    
+    <!-- HTML code for the second dropdown menu -->
+    <div id="second-dropdown-container"></div>
+    
+ 
+    
+    <!--Input number -->
+    <div id="number-input"></div>
+    <button id="submit-button">Submit</button>
+    </form>
+    
+{% endif %}
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock content %}

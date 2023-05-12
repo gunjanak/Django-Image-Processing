@@ -26,14 +26,20 @@ def imageForm(request):
             instance.save()
 
             return render(request,"image_process.html",{"form":form,'object':instance})
-        elif 'Rotate' in request.POST:
+        else:
             latest_object = ImageEnhance.objects.latest('id')
-            latest_object.rotateMe()
-            return render(request,"image_process.html",{"form":form,'object':latest_object})
-        elif 'Transpose' in request.POST:
-            latest_object = ImageEnhance.objects.latest('id')
-            latest_object.transposeMe()
-            return render(request,"image_process.html",{"form":form,'object':latest_object})
+            process = request.POST["first-dropdown"]
+
+            if process == '1':
+                print("************Basic Selected")
+                return HttpResponse("Basic Selected")
+
+            elif process == '2':
+                print("************ Spatial Filter Selcted")
+                return HttpResponse("Spatial Filter Selected")
+            elif process == '3':
+                print("************ Freuency Filter Selected")
+                return HttpResponse("Frequency Filter Selected")
 
         
     else:
