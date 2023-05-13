@@ -7,8 +7,10 @@
 
 {% if object%}
 <h1>Image uploaded</h1>
+<h4>Original Image </h4>
 <img src="{{ object.image.url }}">
     {% if object.image_enhanced %}
+    <h4>{{ filter }}</h4>
     <img src="{{ object.image_enhanced.url }}">
     {% endif %}
 

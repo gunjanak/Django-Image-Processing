@@ -29,19 +29,114 @@ def imageForm(request):
         else:
             latest_object = ImageEnhance.objects.latest('id')
             process = request.POST["first-dropdown"]
+            try:
+                sub_process = request.POST["second-dropdown"]
+                
+            except:
+                pass
+
+            try:
+                tuning_value = request.POST["num-Input"]
+            except:
+                pass
 
             if process == '1':
                 print("************Basic Selected")
-                return HttpResponse("Basic Selected")
+                print(sub_process)
+
+                if sub_process == '1B':
+                    print("********* Bit Plane Slicing Selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.bitPlane(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
+                
+                elif sub_process == "1C":
+                    print("********* Power Transform Selected")
+                    tuning_value = float(tuning_value)
+                    latest_object.powerTransform(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
+                elif sub_process == "1D":
+                    print("******************* Image Threshold selected")
+                    tuning_value = float(tuning_value)
+                    latest_object.thresholdImage(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
+                
+                elif sub_process == "1E":
+                    print("******************* Negative Image selected")
+                    latest_object.negativeImage()
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
+                
+                elif sub_process == "1F":
+                    print("******************* Histogram Equalization selected")
+                    latest_object.histogramEqImage()
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
+
+
+
+                
+                return render(request,"image_process.html",{"form":form,"object":latest_object})
+            
+
 
             elif process == '2':
                 print("************ Spatial Filter Selcted")
-                return HttpResponse("Spatial Filter Selected")
+                print(sub_process)
+
+                if sub_process == "2B":
+                    print("************************Smooth filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.smoothFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Smooth Filters"})
+                
+                elif sub_process == "2C":
+                    print("************************ Sharp filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.sharpFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Sharp Filters"})
+                
+                elif sub_process == '2D':
+                    print("************************ Min filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.minFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Min filter"})
+                
+                elif sub_process == '2E':
+                    print("************************ Max filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.maxFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Max filter"})
+                
+                elif sub_process == '2F':
+                    print("************************ Median filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.medianFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Median filter"})
+                
+                elif sub_process == '2G':
+                    print("************************ High boost filter selected")
+                    tuning_value = int(tuning_value)
+                    latest_object.highBoostFilter(tuning_value)
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"High Boost"})
+                
+                return render(request,"image_process.html",{"form":form,"object":latest_object})
+            
+
             elif process == '3':
                 print("************ Freuency Filter Selected")
-                return HttpResponse("Frequency Filter Selected")
 
-        
+                if sub_process == "3B":
+                    print("*********************Low pass filter selected")
+                    latest_object.lowpassFilter()
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Low pass filter"})
+                
+                elif sub_process == "3C":
+                    print("*********************High pass filter selected")
+                    latest_object.highpassFilter()
+                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"High pass filter"})
+
+                return render(request,"image_process.html",{"form":form,"object":latest_object})
+            
+                    
     else:
         form = ImageForm()
 
