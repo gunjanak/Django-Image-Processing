@@ -22,10 +22,13 @@ def imageForm(request):
         if form.is_valid():
             #save the model instance
             instance = form.save(commit=False)
-            
-            instance.save()
 
-            return render(request,"image_process.html",{"form":form,'object':instance})
+            instance.grayscale()
+            instance.save()
+            #latest_object = ImageEnhance.objects.latest('id')
+            #latest_object.grayscale()
+
+            return render(request,"image_process.html",{"form":form,'object':instance,"filter":"Not Processed"})
         else:
             latest_object = ImageEnhance.objects.latest('id')
             process = request.POST["first-dropdown"]
@@ -86,37 +89,37 @@ def imageForm(request):
                     print("************************Smooth filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.smoothFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Smooth Filters"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == "2C":
                     print("************************ Sharp filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.sharpFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Sharp Filters"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == '2D':
                     print("************************ Min filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.minFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Min filter"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == '2E':
                     print("************************ Max filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.maxFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Max filter"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == '2F':
                     print("************************ Median filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.medianFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Median filter"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == '2G':
                     print("************************ High boost filter selected")
                     tuning_value = int(tuning_value)
                     latest_object.highBoostFilter(tuning_value)
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"High Boost"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 return render(request,"image_process.html",{"form":form,"object":latest_object})
             
@@ -127,12 +130,12 @@ def imageForm(request):
                 if sub_process == "3B":
                     print("*********************Low pass filter selected")
                     latest_object.lowpassFilter()
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"Low pass filter"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
                 
                 elif sub_process == "3C":
                     print("*********************High pass filter selected")
                     latest_object.highpassFilter()
-                    return render(request,"image_process.html",{"form":form,"object":latest_object,"filter":"High pass filter"})
+                    return render(request,"image_process.html",{"form":form,"object":latest_object})
 
                 return render(request,"image_process.html",{"form":form,"object":latest_object})
             

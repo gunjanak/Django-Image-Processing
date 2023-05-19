@@ -6,35 +6,83 @@
 
 
 {% if object%}
-<h1>Image uploaded</h1>
-<h4>Original Image </h4>
-<img src="{{ object.image.url }}">
-    {% if object.image_enhanced %}
-    <h4>{{ filter }}</h4>
-    <img src="{{ object.image_enhanced.url }}">
-    {% endif %}
+<div class="container-fluid">
+  <div class="row mw-100">
+  
+    <div class="card" style="width: 400px;">
+      <div class="card-body">
+        <h4 class="card-title">
+          Original
+        </h4>
+        <img src="{{ object.image.url }}" width="400" height="400">
+      </div>
+    </div>
 
-    <form id="dropdown-form" method="post" url="">
-        {% csrf_token %}
-        <label for="first-dropdown">First Dropdown:</label>
-    <select name="first-dropdown" id="first-dropdown">
-      <option value="">Choose an option</option>
-      <option value="1">Basic</option>
-      <option value="2">Spatial</option>
-      <option value="3">Frequency</option>
-    
-    </select>
-    
-    <!-- HTML code for the second dropdown menu -->
-    <div id="second-dropdown-container"></div>
-    
- 
-    
-    <!--Input number -->
-    <div id="number-input"></div>
-    <button id="submit-button">Submit</button>
-    </form>
-    
+  
+
+  
+    <div class="card" style="width: 400px;">
+      <div class="card-body">
+        <h4 class="card-title">
+          {% if object.filter %}
+          <h4> {{ object.filter }} </h4>
+          {% else %}
+          <h4>To be Processed</h4>
+
+          {% endif %}
+        </h4>
+        <img src="{{ object.image_enhanced.url }}" width="400" height="400">
+      </div>
+      
+    </div>
+
+
+
+    <div class="card" style="width: 250px;">
+      <div class="card-body">
+        <form id="dropdown-form" method="post" url="">
+          {% csrf_token %}
+          <label for="first-dropdown">Choose: </label>
+      <select class="form-select" name="first-dropdown" id="first-dropdown">
+        <option class="small" value="">Options</option>
+        <option value="1">Basic</option>
+        <option value="2">Spatial</option>
+        <option value="3">Frequency</option>
+      
+      </select>
+      
+      <!-- HTML code for the second dropdown menu -->
+      <div id="second-dropdown-container"></div>
+      
+   
+      
+      <!--Input number -->
+      <div id="number-input"></div>
+      <button class="btn btn-dark"id="submit-button">Submit</button>
+      </form>
+       
+      </div>
+      
+    </div>
+
+  
+</div>
+
+
+
+  
+
+
+</div>
+
+
+  
+</div>
+
+
 {% endif %}
+
+
+
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock content %}

@@ -43,6 +43,15 @@ function kernelSetter() {
 
 // Add event listener to the first dropdown menu
 firstDropdown.addEventListener("change", () => {
+    while(numberInputContainer.hasChildNodes()){
+        numberInputContainer.removeChild(numberInputContainer.children[0]);
+        console.log("Removing number slider 1")
+
+      }
+
+
+   
+
     // Remove any existing options from the second and third dropdown menus
     secondDropdownContainer.innerHTML = "";
     
@@ -51,10 +60,18 @@ firstDropdown.addEventListener("change", () => {
     const selectedValue = firstDropdown.value;
 
     if (selectedValue === "1") {
+        while(numberInputContainer.hasChildNodes()){
+            numberInputContainer.removeChild(numberInputContainer.children[0]);
+            console.log("Removing number slider Basic")
+
+          }
+
         console.log("Basic Selected")
         firstValue = 1
         const secondDropdown = document.createElement("select");
         secondDropdown.setAttribute("name","second-dropdown");
+        secondDropdown.setAttribute("class","form-select");
+        //secondDropdown.classList.add("form-select");
 
         var options = [];
 
@@ -71,8 +88,14 @@ firstDropdown.addEventListener("change", () => {
 
 
         secondDropdownContainer.appendChild(secondDropdown);
+        
 
         secondDropdown.addEventListener("change",() => {
+            while(numberInputContainer.hasChildNodes()){
+                numberInputContainer.removeChild(numberInputContainer.children[0]);
+                console.log("Removing number slider basic")
+    
+              }
             secondValue = secondDropdown.value
 
             if(secondValue === "1B"){
@@ -88,6 +111,7 @@ firstDropdown.addEventListener("change", () => {
                   //we will add the number slider (range 0-8) 
 
                   var numInput = document.createElement("INPUT");
+                    
                     numInput.setAttribute("type", "range");
                     numInput.setAttribute("name","num-Input");
                     numInput.setAttribute("min","0");
@@ -224,10 +248,18 @@ firstDropdown.addEventListener("change", () => {
     }
     else if (selectedValue === "2"){
         console.log("Spatial Filter Selected")
+        while(numberInputContainer.hasChildNodes()){
+            numberInputContainer.removeChild(numberInputContainer.children[0]);
+            console.log("Removing number slider spatial")
+    
+          }
         
         firstValue = 2
         const secondDropdown = document.createElement("select");
         secondDropdown.setAttribute("name","second-dropdown");
+        
+        secondDropdown.setAttribute("class","form-select");
+        secondDropdown.classList.add("form-select");
 
         var options = [];
 
@@ -246,12 +278,18 @@ firstDropdown.addEventListener("change", () => {
         secondDropdownContainer.appendChild(secondDropdown);
         secondDropdown.addEventListener("change",() => {
             secondValue = secondDropdown.value
-            if(secondValue){
+            while(numberInputContainer.hasChildNodes()){
+                numberInputContainer.removeChild(numberInputContainer.children[0]);
+                console.log("Removing number slider Spatial")
+    
+              }
+            if(secondValue !== '2A'){
                 
     
                 //following line of code is to remove any other div set by other options
                 while(numberInputContainer.hasChildNodes()){
                     numberInputContainer.removeChild(numberInputContainer.children[0]);
+                    console.log("Removing number slider Spatial inner")
     
                   }
     
@@ -276,11 +314,18 @@ firstDropdown.addEventListener("change", () => {
 
     else if (selectedValue === "3"){
         console.log("Frequency filter selected")
+        while(numberInputContainer.hasChildNodes()){
+            numberInputContainer.removeChild(numberInputContainer.children[0]);
+            console.log("Removing number slider ")
+    
+          }
         
         
         firstValue = 3
         const secondDropdown = document.createElement("select");
         secondDropdown.setAttribute("name","second-dropdown");
+        secondDropdown.setAttribute("class","form-select");
+        secondDropdown.classList.add("form-select");
 
         var options = [];
 

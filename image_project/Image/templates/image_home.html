@@ -1,47 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
            
-            <br/>
-            <br/>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% for im in images %}
-
-                
-                <div v-for="im in images" class="col">
-                    {% if im.image%}
-
-                    <div class="card-title">
-                        <h2>{{ im.title }}</h2>
-                    </div>
-                    <div class="card">
-                        <img src="{{ im.image.url }}">
-
-                    </div>
-                    {% endif %}
-
-                    <div class="card">
-                        {% if im.image_enhanced %}
-
-                        <img src="{{ im.image_enhanced.url }}">
-
-                        {% endif %}
-
-                    </div>
-
-                    <div class="card-text">
-                        <p>{{ im.update_at }}</p>
-                    </div>
-                    
-                    
-                </div>
-                   
-
-                {% endfor %}
-
+<br/>
+<br/>
+<div class="row">
+    {% for im in images %}
+    <div class="row mw-100">
+        <div class="card" style="width: 550px;">
+            <div class="card-body">
+              <h4 class="card-title">
+                Original
+              </h4>
+              <img src="{{ im.image.url }}" width="400" height="400">
             </div>
+        </div>
+
+        <div class="card" style="width: 550px;">
+            <div class="card-body">
+              <h4 class="card-title">
+                {% if im.filter %}
+                <h4> {{ im.filter }} </h4>
+                {% else %}
+                <h4>To be Processed</h4>
+      
+                {% endif %}
+              </h4>
+              <img src="{{ im.image_enhanced.url }}" width="400" height="400">
+            </div>
+            
+        </div>
+
+        
+    </div>
+
+    
+
+
+    
+    {% endfor %}
+
+</div>
 
             
 
-        </div>
         
 {% endblock content %}
