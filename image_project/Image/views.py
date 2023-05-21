@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
+
 from .models import ImageEnhance
 from .forms import ImageForm
 
@@ -10,9 +12,23 @@ from .forms import ImageForm
 def imageHome(request):
        
     try:
-        images = ImageEnhance.objects.all()
+        images = ImageEnhance.objects.all().order_by('id') 
         
-        return render(request,'image_home.html',{'images':images})
+        p = Paginator(images,5)
+        print(p.count)
+        page_number = request.GET.get('page')
+        print(page_number)
+
+        try:
+            page_obj = p.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        print(page_obj)
+        context = {'page_obj':page_obj}
+        
+        return render(request,'image_home.html',context)
     except:
         return HttpResponse("We do not have any images to show you")
     
