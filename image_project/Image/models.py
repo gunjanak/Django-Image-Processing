@@ -57,8 +57,9 @@ class ImageEnhance(models.Model):
     image = models.ImageField(upload_to="",blank=True,null=True)
     image_enhanced = models.ImageField(upload_to="",blank=True,null=True)
     filter = models.CharField(max_length=50,blank=True,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    
     
 
     def grayscale(self,*args,**kwargs):

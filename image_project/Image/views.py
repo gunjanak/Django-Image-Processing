@@ -14,7 +14,7 @@ def imageHome(request):
     try:
         images = ImageEnhance.objects.all().order_by('id') 
         
-        p = Paginator(images,5)
+        p = Paginator(images,3)
         print(p.count)
         page_number = request.GET.get('page')
         print(page_number)

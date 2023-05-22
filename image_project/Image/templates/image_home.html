@@ -17,6 +17,7 @@
 
         <div class="card" style="width: 550px;">
             <div class="card-body">
+                
               <h4 class="card-title">
                 {% if im.filter %}
                 <h4> {{ im.filter }} </h4>
@@ -26,6 +27,8 @@
                 {% endif %}
               </h4>
               <img src="{{ im.image_enhanced.url }}" width="400" height="400">
+              <br>
+              <small class="card-text">{{im.created_at}} </small>
             </div>
             
         </div>
