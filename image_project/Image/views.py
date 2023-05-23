@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator,PageNotAnInteger, EmptyPage
+from django.contrib.auth.decorators import login_required
 
 from .models import ImageEnhance
 from .forms import ImageForm
@@ -12,7 +13,7 @@ from .forms import ImageForm
 def imageHome(request):
        
     try:
-        images = ImageEnhance.objects.all().order_by('id') 
+        images = ImageEnhance.objects.all().order_by('-id') 
         
         p = Paginator(images,3)
         print(p.count)
@@ -31,7 +32,8 @@ def imageHome(request):
         return render(request,'image_home.html',context)
     except:
         return HttpResponse("We do not have any images to show you")
-    
+
+@login_required    
 def imageForm(request):
     if request.method == 'POST':
         form = ImageForm(request.POST,request.FILES)
